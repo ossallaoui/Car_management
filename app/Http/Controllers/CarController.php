@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -14,9 +15,9 @@ class CarController extends Controller
 
 		$car=new Car();
 
-		$care=make=$make;
-		$care=model=$model;
-		$care=produced_on=$produced_on;
+		$car->make=$make;
+		$car->model=$model;
+		$car->produced_on=$produced_on;
 
 		$car->save();
 
@@ -26,6 +27,8 @@ class CarController extends Controller
 
 	public function show()
 	{
-		# code...
+		$cars=Car::all();
+
+		return view('index', ['cars'=>$cars]);
 	}
 }

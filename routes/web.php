@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [
+    'uses'=>'carController@show',
+	'as'=>'cars.show'
+]);
+
+
 
 Route::post('/create',[
-	'uses'=>'CArController@create',
-	'as'=>'Cars.create'
+	'uses'=>'carController@create',
+	'as'=>'cars.create'
 ]);

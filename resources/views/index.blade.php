@@ -9,6 +9,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<form action="{{route('cars.create')}}" method="post">
+					@csrf
 					<div class="row form-group">
 						<div class="col-md-12">
 							<label for="">make:</label>
@@ -44,11 +45,13 @@
 						<th>Model</th>
 						<th>Produced On</th>
 					</tr>
+					@foreach($cars as $car)
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>{{$car->make}}</td>
+						<td>{{$car->model}}</td>
+						<td>{{$car->produced_on}}</td>
 					</tr>
+					@endforeach
 				</table>
 			</div>
 		</div>
