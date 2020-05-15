@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [
-    'uses'=>'carController@show',
-	'as'=>'cars.show'
+    'uses'=>'carController@index',
+	'as'=>'cars.index'
 ]);
 
 
@@ -23,4 +23,19 @@ Route::get('/', [
 Route::post('/create',[
 	'uses'=>'carController@create',
 	'as'=>'cars.create'
+]);
+
+Route::get('/cars/{car}/edit',[
+	'uses'=>'carController@edit',
+	'as'=>'cars.edit'
+]);
+
+Route::post('/cars/{car}',[
+	'uses'=>'carController@update',
+	'as'=>'cars.update'
+]);
+
+Route::delete('/cars/{car}',[
+	'uses'=>'carController@destroy',
+	'as'=>'cars.delete'
 ]);
