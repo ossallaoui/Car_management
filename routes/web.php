@@ -13,16 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [
+Route::get('/cars', [
     'uses'=>'carController@index',
 	'as'=>'cars.index'
 ]);
 
+//get dashboard page
+
+Route::get('/', [
+    'uses'=>'DashboardController@index',
+	'as'=>'dashboard.index'
+]);
 
 
-Route::post('/create',[
+
+Route::get('/cars/create',[
 	'uses'=>'carController@create',
 	'as'=>'cars.create'
+]);
+
+Route::post('/cars',[
+	'uses'=>'carController@store',
+	'as'=>'cars.store'
 ]);
 
 Route::get('/cars/{car}/edit',[

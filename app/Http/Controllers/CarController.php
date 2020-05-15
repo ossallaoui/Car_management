@@ -7,8 +7,30 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-	public function create(Request $request)
+
+	//method shows all cars 
+
+		public function index()
 	{
+		//here we can set what user chose instead of 5
+		//we already have perPage as a parametre or request attribute
+		$cars=Car::paginate(Request('perPage', 5));
+
+		return view('index', ['cars'=>$cars]);
+	}
+	//a method redirect us to the create page
+
+		public function create()
+		{
+			return view('create');
+		}
+	//a method that store a new car 
+	public function store(Request $request)
+	{
+		//dd($request->all()); //just to show what in $request->all()
+
+		Car::create($request->all());
+		/* another way t add new car
 		$make=$request['make'];
 		$model=$request['model'];
 		$produced_on=$request['produced_on'];
@@ -20,17 +42,12 @@ class CarController extends Controller
 		$car->produced_on=$produced_on;
 
 		$car->save();
-
+		*/
 		return redirect()->back();
 	}
 
 
-	public function index()
-	{
-		$cars=Car::all();
 
-		return view('index', ['cars'=>$cars]);
-	}
 //redirect us to the edit page
 	public function edit($car_id)
 	{
