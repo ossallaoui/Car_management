@@ -13,19 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cars', [
-    'uses'=>'carController@index',
-	'as'=>'cars.index'
-]);
 
 //get dashboard page
 
 Route::get('/', [
-    'uses'=>'DashboardController@index',
+    'uses'=>'HomeController@index',
 	'as'=>'dashboard.index'
 ]);
 
+Route::get('/dashboard', [
+    'uses'=>'DashboardController@index',
+	'as'=>'dashboard.index'
+]);
+//first way to create car controllers 
+Route::resource('cars', 'CarController');
 
+
+/*
+//secound way to create car controllers
+Route::get('/cars', [
+    'uses'=>'carController@index',
+	'as'=>'cars.index'
+]);
 
 Route::get('/cars/create',[
 	'uses'=>'carController@create',
@@ -51,3 +60,8 @@ Route::delete('/cars/{car}',[
 	'uses'=>'carController@destroy',
 	'as'=>'cars.delete'
 ]);
+*/
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

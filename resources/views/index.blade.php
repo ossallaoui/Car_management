@@ -10,6 +10,14 @@
 			<a href="/cars/create" class="btn btn-sm btn-primary">Add New Car</a>
 		</div>
 	</div>
+	@if(Session::has('status'))
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			  <strong>Success!</strong> {{Session::get('status')}}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+		</div>
+	@endif
 
 	<div class="table-responsive shadow rounded">	
 				<table class="table table-sm table-striped table-hover">
@@ -18,6 +26,8 @@
 						<th>Make</th>
 						<th>Model</th>
 						<th>Produced On</th>
+						<th>Created At</th>
+						<th>Updated At</th>
 					</tr>
 					@foreach($cars as $car)
 					<tr>
@@ -25,12 +35,18 @@
 						<td>{{$car->make}}</td>
 						<td>{{$car->model}}</td>
 						<td>{{$car->produced_on}}</td>
+						<td>{{$car->created_at}}</td>
+						<td>{{$car->updated_at}}</td>
 						<td class="text-center">
-							<a href="{{route('cars.edit',["car"=>$car])}}" class="btn btn-sm btn-primary">Edit</a>
-							<form class="ml-2 d-inline" action="{{route('cars.delete',["car"=>$car])}}" method="post">
+							<a href="{{route('cars.edit',["car"=>$car])}}" class="btn btn-sm btn-primary">
+								<i class="fa fa-edit"></i>
+							</a>
+							<form class="ml-2 d-inline" action="{{route('cars.destroy',["car"=>$car])}}" method="post">
 								@method('delete')
 								@csrf
-								<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+								<button type="submit" class="btn btn-sm btn-danger">
+									<i class="fa fa-trash"></i>
+								</button>
 							</form>
 						</td>
 					</tr>

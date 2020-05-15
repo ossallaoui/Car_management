@@ -10,13 +10,15 @@ class CarController extends Controller
 
 	//method shows all cars 
 
-		public function index()
+	public function index()
 	{
 		//here we can set what user chose instead of 5
 		//we already have perPage as a parametre or request attribute
 		$cars=Car::paginate(Request('perPage', 5));
 
 		return view('index', ['cars'=>$cars]);
+
+
 	}
 	//a method redirect us to the create page
 
@@ -28,8 +30,15 @@ class CarController extends Controller
 	public function store(Request $request)
 	{
 		//dd($request->all()); //just to show what in $request->all()
-
+		$request->validate([
+			'make'=> 'required|min:3|max:10',
+			'model'=> 'required|min:3|max:10',
+			'produced_on'=> 'required'
+		]);
+		
 		Car::create($request->all());
+
+		$request->session()->flash('status','Car was successfly added!');
 		/* another way t add new car
 		$make=$request['make'];
 		$model=$request['model'];
@@ -43,7 +52,7 @@ class CarController extends Controller
 
 		$car->save();
 		*/
-		return redirect()->back();
+		return redirect()->route("cars.index");
 	}
 
 
